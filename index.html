@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>CV Đoàn Thị Kỳ Duyên</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    /* CV */
+    .cv-container {
+      width: 100%;
+      max-width: 794px;
+      margin: 0 auto;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+
+    .cv-container.visible {
+      opacity: 1;
+    }
+
+    .cv-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 210 / 297;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .cv-frame iframe {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Loading screen */
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: #fff;
+      transition:
+        opacity 0.65s ease,
+        visibility 0.65s ease;
+    }
+
+    .loading-screen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loading-content {
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+      animation: appear 0.9s ease both;
+    }
+
+    .name {
+      margin: 0;
+      color: #171717;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(20px, 5.5vw, 30px);
+      font-weight: 400;
+      line-height: 1.35;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .separator {
+      width: 32px;
+      height: 1px;
+      margin: 27px auto;
+      background: #d2d2d2;
+    }
+
+    .loading-label {
+      margin: 0 0 14px;
+      color: #888;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    .progress-track {
+      width: 140px;
+      height: 2px;
+      margin: 0 auto;
+      overflow: hidden;
+      background: #ededed;
+    }
+
+    .progress-bar {
+      width: 40%;
+      height: 100%;
+      background: #171717;
+      animation: loading 1.2s ease-in-out infinite;
+    }
+
+    .loading-screen.hide .progress-bar {
+      animation: none;
+    }
+
+    @keyframes loading {
+      0% {
+        transform: translateX(-110%);
+      }
+
+      100% {
+        transform: translateX(360%);
+      }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 360px) {
+      .name {
+        font-size: 18px;
+        letter-spacing: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Loading -->
+  <div class="loading-screen" id="loading">
+    <div class="loading-content">
+
+      <h1 class="name">ĐOÀN THỊ KỲ DUYÊN</h1>
+
+      <div class="separator"></div>
+
+      <p class="loading-label">Đang tải hồ sơ</p>
+
+      <div class="progress-track">
+        <div class="progress-bar"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CV -->
+  <main class="cv-container" id="cv">
+    <div class="cv-frame">
+      <iframe
+        src="https://www.canva.com/design/DAHZCaNqZws/XUk2FIMfC0EEtt32VviFng/view?embed"
+        title="CV Đoàn Thị Kỳ Duyên"
+        loading="eager"
+        allowfullscreen
+        allow="fullscreen"
+      ></iframe>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const loading = document.getElementById("loading");
+      const cv = document.getElementById("cv");
+
+      let finished = false;
+
+      function showCV() {
+        if (finished) return;
+
+        finished = true;
+
+        cv.classList.add("visible");
+        loading.classList.add("hide");
+
+        setTimeout(() => {
+          loading.remove();
+        }, 700);
+      }
+
+      window.addEventListener("load", () => {
+        setTimeout(showCV, 1200);
+      });
+
+      // Dự phòng nếu trang tải chậm.
+      setTimeout(showCV, 4000);
+    })();
+  </script>
+
+</body>
+</html>
